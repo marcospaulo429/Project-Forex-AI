@@ -20,6 +20,7 @@ class Operation:
         else:
             stop_loss = self.price*1.03
 
+        self.stop_loss = stop_loss
         return stop_loss
     
     def stop_gain(self):
@@ -29,11 +30,13 @@ class Operation:
         else:
             stop_gain = self.price*0.97
 
+        self.stop_gain = stop_gain
         return stop_gain
     
-    def reached_stop_gain(self,actual_price):
-        if ((self.stop_gain == actual_price) or (self.stop_gain == actual_price)):
-            return calculate_profit_loss_eurusd(self.price,actual_price,self.pip_value,self.lot_size,self.leverage)
+    def reached_stops(self,actual_price):
+        if ((self.stop_gain == actual_price) or (self.stop_loss == actual_price)):
+            results_operation = np.array([self.price,self.type_of_operation,calculate_profit_loss_eurusd(self.price,actual_price,self.pip_value,self.lot_size,self.leverage)])
+            return results_operation
         
         else:
             pass
