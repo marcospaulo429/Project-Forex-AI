@@ -6,11 +6,9 @@ def calculate_profit_loss_eurusd(entry_price, exit_price, pip_value, lot_size, l
 
 class Operation:
 
-    def __init__(self,price,type_of_operation,stop_loss,stop_gain, pip_value, lot_size, leverage):
+    def __init__(self,price,type_of_operation, pip_value, lot_size, leverage):
         self.price = price
         self.type_of_operation = type_of_operation
-        self.stop_loss = stop_loss
-        self.stop_gain = stop_gain
         self.pip_value = pip_value
         self.lot_size = lot_size
         self.leverage = leverage
@@ -22,7 +20,7 @@ class Operation:
         else:
             stop_loss = self.price*1.03
 
-        self.stop_loss = stop_loss
+        return stop_loss
     
     def stop_gain(self):
         if (self.type_of_operation=="buy"):
@@ -31,7 +29,7 @@ class Operation:
         else:
             stop_gain = self.price*0.97
 
-        self.stop_gain = stop_gain
+        return stop_gain
     
     def reached_stop_gain(self,actual_price):
         if ((self.stop_gain == actual_price) or (self.stop_gain == actual_price)):
